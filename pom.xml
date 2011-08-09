@@ -12,7 +12,7 @@
     <artifactId>plugin-portalrest</artifactId>
     <packaging>lutece-plugin</packaging>
     <version>1.0.0-SNAPSHOT</version>
-    <name>Lutece portlet rest plugin</name>
+    <name>Lutece portal rest plugin</name>
 
     <repositories>
         <repository>
@@ -48,8 +48,7 @@
     </dependencies>
 
     <properties>
-        <componentName>html-rest</componentName>
-        <jiraProjectName>HTMLREST</jiraProjectName>
+        <jiraProjectName>PORTALREST</jiraProjectName>
         <jiraComponentId></jiraComponentId>
     </properties>
 

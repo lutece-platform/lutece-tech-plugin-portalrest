@@ -41,8 +41,13 @@ import fr.paris.lutece.portal.business.page.PageHome;
 import fr.paris.lutece.portal.business.portlet.Portlet;
 import fr.paris.lutece.portal.business.portlet.PortletHome;
 //import fr.paris.lutece.portal.service.message.SiteMessageException;
+import fr.paris.lutece.portal.service.html.XmlTransformerService;
+import fr.paris.lutece.portal.service.message.SiteMessageException;
+import java.util.HashMap;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -109,6 +114,7 @@ public class PortletRest
                 json.accumulate(RestPortletConstants.ORDER, portlet.getOrder());
                 json.accumulate(RestPortletConstants.ACCEPT_ALIAS, portlet.getAcceptAlias());
                 json.accumulate(RestPortletConstants.DISPLAY_PORTLET_TITLE, portlet.getDisplayPortletTitle());
+                json.accumulate(RestPortletConstants.DISPLAY_PORTLET_CONTENT , getPortletContent(portlet));
                 JSONObject jsonPortlet = new JSONObject();
                 jsonPortlet.accumulate("portlet", json);
                 strJSON = jsonPortlet.toString(4);
@@ -180,7 +186,38 @@ public class PortletRest
         sbXML.append("<portlet-type>").append(portlet.getPortletTypeId()).append("</portlet-type>\n");
         sbXML.append("<style-id>").append(portlet.getStyleId()).append("</style-id>\n");
         sbXML.append("<status>").append(portlet.getStatus()).append("</status>\n");
+        sbXML.append("<content><![CDATA[").append( getPortletContent(portlet)).append("]]></content>\n");
         sbXML.append("</portlet>");
 
     }
+    
+    private String getPortletContent( Portlet portlet )
+    {
+        try
+        {
+            XmlTransformerService xmlTransformerService = new XmlTransformerService(  );
+            String strPortletXmlContent = portlet.getXml( null );
+            String strXslUniqueId = String.valueOf( portlet.getStyleId(  ) );
+            String strPortletContent = xmlTransformerService.transformBySourceWithXslCache( strPortletXmlContent,
+                    portlet.getXslSource( 0 ), strXslUniqueId , new HashMap<String, String>() );
+            
+            strPortletContent = removeXmlHeader( strPortletContent );
+            return strPortletContent;
+        } catch (SiteMessageException ex)
+        {
+            Logger.getLogger(PortletRest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Error while retrieving portlet content";
+    }
+    
+    private String removeXmlHeader( String strSource )
+    {
+        String strDest = strSource;
+            int nPos = strDest.indexOf("?>");
+            if( nPos > 0 )
+            {
+                strDest = strDest.substring(nPos + 2 );
+            }
+        return strDest;
+    }   
 }

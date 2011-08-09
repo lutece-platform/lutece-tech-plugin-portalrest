@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><plug-in>
+    <!-- Plugin Informations -->
+    <name>portalrest</name>
+    <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
+    <version>1.0.0</version>
+    <documentation/>
+    <installation/>
+    <changes/>
+    <user-guide/>
+    <description>portalrest.plugin.description</description>
+    <provider>portalrest.plugin.provider</provider>
+    <provider-url>http://lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/plugins/portalrest/portalrest.png</icon-url>
+    <copyright>Copyright 2001-2011 Mairie de Paris</copyright>
+	<core-version-dependency>
+		<min-core-version>2.4.0</min-core-version>
+		<max-core-version/>
+	</core-version-dependency>
+
+	<!-- if the plugin must have a connection pool with parameter : 1 - yes, 0 - no -->
+    <db-pool-required>0</db-pool-required>
+    
+    <filters>
+        <filter>
+            <filter-name>portalrest-security-filter</filter-name>
+            <url-pattern>/rest/portal/*</url-pattern>
+            <filter-class>fr.paris.lutece.util.signrequest.servlet.ParameterHashRequestFilter</filter-class>
+
+            <init-param>
+               <!-- List separated by a comma of request parameters names used 
+               for signing the request  -->
+                <param-name>elementsSignature</param-name>
+                <param-value></param-value>
+            </init-param>
+
+            <init-param>
+                <param-name>validityTimePeriod</param-name>
+                <param-value>0</param-value>
+            </init-param>
+
+            <init-param>
+                <param-name>privateKey</param-name>
+                <param-value>change me</param-value>
+            </init-param>
+        </filter>
+    </filters>
+
+</plug-in>

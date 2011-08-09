@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="portalrest.restPage" class="fr.paris.lutece.plugins.portalrest.rs.PageRest" />
+    <bean id="portalrest.restPortlet" class="fr.paris.lutece.plugins.portalrest.rs.PortletRest" />
+    <bean id="portalrest.restPageTemplate" class="fr.paris.lutece.plugins.portalrest.rs.PageTemplateRest" />
+    <bean id="portalrest.restRole" class="fr.paris.lutece.plugins.portalrest.rs.RoleRest" />
+    <bean id="portalrest.restWorkgroup" class="fr.paris.lutece.plugins.portalrest.rs.WorkgroupRest" />
+    <bean id="portalrest.restTheme" class="fr.paris.lutece.plugins.portalrest.rs.ThemeRest" />
+
+</beans>

@@ -219,11 +219,11 @@ public class PageRest
             if (bUpdate)
             {
                 PageHome.update(page);
-                strReturn = "Page updated successfully";
+                strReturn = "" + page.getId();
             } else
             {
-                PageHome.create(page);
-                strReturn = "Page created successfully";
+                Page p = PageHome.create(page);
+                strReturn = "" + p.getId();
             }
         } catch (Exception e)
         {

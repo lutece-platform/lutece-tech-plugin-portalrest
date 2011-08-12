@@ -49,7 +49,7 @@
 
     <properties>
         <jiraProjectName>PORTALREST</jiraProjectName>
-        <jiraComponentId></jiraComponentId>
+        <jiraComponentId>10564</jiraComponentId>
     </properties>
 
     <scm>

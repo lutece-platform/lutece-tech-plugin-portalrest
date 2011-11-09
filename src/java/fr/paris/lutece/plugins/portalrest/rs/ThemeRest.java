@@ -38,43 +38,48 @@ import fr.paris.lutece.portal.service.portal.ThemesService;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.xml.XmlUtil;
+
 import javax.servlet.http.HttpServletRequest;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+
 /**
  * Theme resource
  */
-@Path(RestConstants.BASE_PATH + "portal/theme")
+@Path( RestConstants.BASE_PATH + Constants.PLUGIN_NAME + "/theme" )
 public class ThemeRest
 {
-
     private static final String KEY_NAME = "name";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_THEME = "theme";
     private static final String KEY_THEMES = "themes";
 
     @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_XML)
-    public String getThemeXml( @Context HttpServletRequest request)
+    @Path( "/" )
+    @Produces( MediaType.APPLICATION_XML )
+    public String getThemeXml( @Context
+    HttpServletRequest request )
     {
         ReferenceList list = ThemesService.getPageThemes( request.getLocale(  ) );
-        StringBuffer sbXML = new StringBuffer();
-        sbXML.append("<?xml version=\"1.0\"?>\n");
-        XmlUtil.beginElement(sbXML, KEY_THEMES);
-        for ( ReferenceItem item : list)
-        {
-            XmlUtil.beginElement(sbXML, KEY_THEME);
-            XmlUtil.addElement(sbXML, KEY_NAME, item.getCode());
-            XmlUtil.addElement(sbXML, KEY_DESCRIPTION, item.getName());
-            XmlUtil.endElement(sbXML, KEY_THEME);
-        }
-        XmlUtil.endElement(sbXML, KEY_THEMES);
-        return sbXML.toString();
+        StringBuffer sbXML = new StringBuffer(  );
+        sbXML.append( "<?xml version=\"1.0\"?>\n" );
+        XmlUtil.beginElement( sbXML, KEY_THEMES );
 
+        for ( ReferenceItem item : list )
+        {
+            XmlUtil.beginElement( sbXML, KEY_THEME );
+            XmlUtil.addElement( sbXML, KEY_NAME, item.getCode(  ) );
+            XmlUtil.addElement( sbXML, KEY_DESCRIPTION, item.getName(  ) );
+            XmlUtil.endElement( sbXML, KEY_THEME );
+        }
+
+        XmlUtil.endElement( sbXML, KEY_THEMES );
+
+        return sbXML.toString(  );
     }
 }

@@ -31,8 +31,8 @@
  *
  * License 1.0
  */
-
 package fr.paris.lutece.plugins.portalrest.rs;
+
 
 /**
  *
@@ -50,6 +50,4 @@ public class RestPortletConstants
     public static final String ACCEPT_ALIAS = "accept_alias";
     public static final String DISPLAY_PORTLET_TITLE = "display_portlet_title";
     public static final String DISPLAY_PORTLET_CONTENT = "content";
-
-
 }

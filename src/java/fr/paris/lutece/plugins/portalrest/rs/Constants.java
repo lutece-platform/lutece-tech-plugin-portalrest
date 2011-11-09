@@ -33,49 +33,15 @@
  */
 package fr.paris.lutece.plugins.portalrest.rs;
 
-import fr.paris.lutece.plugins.rest.service.RestConstants;
-import fr.paris.lutece.portal.business.role.RoleHome;
-import fr.paris.lutece.util.ReferenceItem;
-import fr.paris.lutece.util.ReferenceList;
-import fr.paris.lutece.util.xml.XmlUtil;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 
 /**
- * Role resource
+ * Constants
  */
-@Path( RestConstants.BASE_PATH + Constants.PLUGIN_NAME + "/role" )
-public class RoleRest
+public final class Constants
 {
-    private static final String KEY_NAME = "name";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_ROLE = "role";
-    private static final String KEY_ROLES = "roles";
+    public static final String PLUGIN_NAME = "portalrest";
 
-    @GET
-    @Path( "/" )
-    @Produces( MediaType.APPLICATION_XML )
-    public String getRoleXml(  )
+    private Constants(  )
     {
-        ReferenceList list = RoleHome.getRolesList(  );
-        StringBuffer sbXML = new StringBuffer(  );
-        sbXML.append( "<?xml version=\"1.0\"?>\n" );
-        XmlUtil.beginElement( sbXML, KEY_ROLES );
-
-        for ( ReferenceItem role : list )
-        {
-            XmlUtil.beginElement( sbXML, KEY_ROLE );
-            XmlUtil.addElement( sbXML, KEY_NAME, role.getCode(  ) );
-            XmlUtil.addElement( sbXML, KEY_DESCRIPTION, role.getName(  ) );
-            XmlUtil.endElement( sbXML, KEY_ROLE );
-        }
-
-        XmlUtil.endElement( sbXML, KEY_ROLES );
-
-        return sbXML.toString(  );
     }
 }

@@ -37,42 +37,46 @@ import fr.paris.lutece.plugins.rest.service.RestConstants;
 import fr.paris.lutece.portal.business.style.PageTemplate;
 import fr.paris.lutece.portal.business.style.PageTemplateHome;
 import fr.paris.lutece.util.xml.XmlUtil;
+
 import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+
 /**
  * Role resource
  */
-@Path(RestConstants.BASE_PATH + "portal/pagetemplate")
+@Path( RestConstants.BASE_PATH + Constants.PLUGIN_NAME + "/pagetemplate" )
 public class PageTemplateRest
 {
-
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_PAGE_TEMPLATE = "page-template";
     private static final String KEY_PAGE_TEMPLATES = "page-templates";
 
     @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_XML)
-    public String getPageTemplateXml()
+    @Path( "/" )
+    @Produces( MediaType.APPLICATION_XML )
+    public String getPageTemplateXml(  )
     {
-        List<PageTemplate> list = PageTemplateHome.getPageTemplatesList();
-        StringBuffer sbXML = new StringBuffer();
-        sbXML.append("<?xml version=\"1.0\"?>\n");
-        XmlUtil.beginElement(sbXML, KEY_PAGE_TEMPLATES);
-        for (PageTemplate page : list)
-        {
-            XmlUtil.beginElement(sbXML, KEY_PAGE_TEMPLATE);
-            XmlUtil.addElement(sbXML, KEY_ID, page.getId());
-            XmlUtil.addElement(sbXML, KEY_NAME, page.getDescription());
-            XmlUtil.endElement(sbXML, KEY_PAGE_TEMPLATE);
-        }
-        XmlUtil.endElement(sbXML, KEY_PAGE_TEMPLATES);
-        return sbXML.toString();
+        List<PageTemplate> list = PageTemplateHome.getPageTemplatesList(  );
+        StringBuffer sbXML = new StringBuffer(  );
+        sbXML.append( "<?xml version=\"1.0\"?>\n" );
+        XmlUtil.beginElement( sbXML, KEY_PAGE_TEMPLATES );
 
+        for ( PageTemplate page : list )
+        {
+            XmlUtil.beginElement( sbXML, KEY_PAGE_TEMPLATE );
+            XmlUtil.addElement( sbXML, KEY_ID, page.getId(  ) );
+            XmlUtil.addElement( sbXML, KEY_NAME, page.getDescription(  ) );
+            XmlUtil.endElement( sbXML, KEY_PAGE_TEMPLATE );
+        }
+
+        XmlUtil.endElement( sbXML, KEY_PAGE_TEMPLATES );
+
+        return sbXML.toString(  );
     }
 }

@@ -38,46 +38,51 @@ import fr.paris.lutece.portal.business.workgroup.AdminWorkgroup;
 import fr.paris.lutece.portal.business.workgroup.AdminWorkgroupHome;
 import fr.paris.lutece.portal.service.workgroup.AdminWorkgroupService;
 import fr.paris.lutece.util.xml.XmlUtil;
+
 import java.util.Collection;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+
 /**
  * Workgroup resource
  */
-@Path(RestConstants.BASE_PATH + "portal/workgroup")
+@Path( RestConstants.BASE_PATH + Constants.PLUGIN_NAME + "/workgroup" )
 public class WorkgroupRest
 {
-
     private static final String KEY_NAME = "name";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_WORKGROUP = "workgroup";
     private static final String KEY_WORKGROUPS = "workgroups";
 
     @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_XML)
-    public String getWorkgroupXml()
+    @Path( "/" )
+    @Produces( MediaType.APPLICATION_XML )
+    public String getWorkgroupXml(  )
     {
-        Collection<AdminWorkgroup> list = AdminWorkgroupHome.findAll();
-        AdminWorkgroup groupAll = new AdminWorkgroup();
-        groupAll.setKey(AdminWorkgroupService.ALL_GROUPS );
-        groupAll.setDescription(AdminWorkgroupService.ALL_GROUPS);
-        list.add(groupAll);
-        StringBuffer sbXML = new StringBuffer();
-        sbXML.append("<?xml version=\"1.0\"?>\n");
-        XmlUtil.beginElement(sbXML, KEY_WORKGROUPS);
-        for ( AdminWorkgroup group : list)
-        {
-            XmlUtil.beginElement(sbXML, KEY_WORKGROUP);
-            XmlUtil.addElement(sbXML, KEY_NAME, group.getKey());
-            XmlUtil.addElement(sbXML, KEY_DESCRIPTION, group.getDescription());
-            XmlUtil.endElement(sbXML, KEY_WORKGROUP);
-        }
-        XmlUtil.endElement(sbXML, KEY_WORKGROUPS);
-        return sbXML.toString();
+        Collection<AdminWorkgroup> list = AdminWorkgroupHome.findAll(  );
+        AdminWorkgroup groupAll = new AdminWorkgroup(  );
+        groupAll.setKey( AdminWorkgroupService.ALL_GROUPS );
+        groupAll.setDescription( AdminWorkgroupService.ALL_GROUPS );
+        list.add( groupAll );
 
+        StringBuffer sbXML = new StringBuffer(  );
+        sbXML.append( "<?xml version=\"1.0\"?>\n" );
+        XmlUtil.beginElement( sbXML, KEY_WORKGROUPS );
+
+        for ( AdminWorkgroup group : list )
+        {
+            XmlUtil.beginElement( sbXML, KEY_WORKGROUP );
+            XmlUtil.addElement( sbXML, KEY_NAME, group.getKey(  ) );
+            XmlUtil.addElement( sbXML, KEY_DESCRIPTION, group.getDescription(  ) );
+            XmlUtil.endElement( sbXML, KEY_WORKGROUP );
+        }
+
+        XmlUtil.endElement( sbXML, KEY_WORKGROUPS );
+
+        return sbXML.toString(  );
     }
 }

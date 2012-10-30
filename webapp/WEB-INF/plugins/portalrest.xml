@@ -2,7 +2,7 @@
     <!-- Plugin Informations -->
     <name>portalrest</name>
     <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <documentation/>
     <installation/>
     <changes/>
@@ -30,7 +30,7 @@
                <!-- List separated by a comma of request parameters names used 
                for signing the request  -->
                 <param-name>elementsSignature</param-name>
-                <param-value></param-value>
+                <param-value/>
             </init-param>
 
             <init-param>
